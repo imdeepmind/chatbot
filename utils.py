@@ -3,7 +3,7 @@ import re
 def clean_comment(comment):
     # Changing to lowercase
     comment = comment.lower()
-    
+
     # Changing he'll to he will
     comment = re.sub(r"i'm", "i am", comment)
     
@@ -39,8 +39,6 @@ def clean_comment(comment):
     
     comment = re.sub(r"\'d", " would", comment)
     
-    comment = re.sub(r'''(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))''', '', comment, flags=re.MULTILINE)
-    
     comment = re.sub(r'(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)', '', comment)
     
     return comment
@@ -49,7 +47,7 @@ def check_comment_quality(comment):
     comment = comment.lower()
     if comment =='[deleted]' or comment == '[removed]':
         return False
-    elif len(comment.split()) >= 2 and len(comment.split()) < 100:
+    elif len(comment.split()) >= 1 and len(comment.split()) < 100:
         return True
     return False
     
