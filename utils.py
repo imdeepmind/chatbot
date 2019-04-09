@@ -39,7 +39,7 @@ def clean_comment(comment):
     
     comment = re.sub(r"\'d", " would", comment)
     
-    comment = re.sub(r'(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)', '', comment)
+    comment = comment.replace('\n',' newlinechar ').replace('\r',' newlinechar ').replace('"',"'")
     
     return comment
 
