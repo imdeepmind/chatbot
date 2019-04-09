@@ -1,6 +1,7 @@
 import pandas as pd
 import pickle
 import numpy as np
+from keras.preprocessing.sequence import pad_sequences
 
 data = pd.read_csv('data/dataset.csv')
 
@@ -13,16 +14,11 @@ answers = data['answer'].values
 with open('data/tokenizer.pickle', 'rb') as t:
     tokenizer = pickle.load(t)
     
-questions_vec = []
-answers_vec = []
+questions = tokenizer.texts_to_sequences(questions)
+answers = tokenizer.texts_to_sequences(answers)
 
-for question in questions:
-    qvec = tokenizer.texts_to_sequences(question)
-    questions_vec.append(qvec)
-    
-for answer in answers:
-    avec = tokenizer.texts_to_sequences(answer)
-    answers_vec.append(avec)
-    
-np.save('data/questons.npy', questions_vec)
-np.save('data/answers.npy', answers_vec)
+questions = pad_sequences(questions, maxlen=100, padding='post')
+answers = pad_sequences(answers, maxlen=100, padding='post')
+
+np.save('data/questions.npy', questions)
+np.save('data/answers.npy', answers)
